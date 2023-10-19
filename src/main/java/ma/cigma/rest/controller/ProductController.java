@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +32,8 @@ public class ProductController {
 	/**
 	 * Pour chercher tous les produits
 	 */
-	@GetMapping(value = "/products")
+	@GetMapping(value = "/products",
+			produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public List<Product> getAll() {
 		return service.getAll();
 	}
@@ -39,7 +41,8 @@ public class ProductController {
 	/**
 	 * Pour chercher un produit par son id
 	 */
-	@GetMapping(value = "/products/{id}")
+	@GetMapping(value = "/products/{id}",
+			produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public Product getProductById(@PathVariable(value = "id") Long productId) {
 		return service.getById(productId);
 	}
@@ -47,7 +50,8 @@ public class ProductController {
 	/**
 	 * Pour créer un nouveau produit
 	 */
-	@PostMapping(value = "/products")
+	@PostMapping(value = "/products",
+			produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Object> createProdut(@Validated @RequestBody Product product) {
 		service.create(product);
 		return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
@@ -56,7 +60,8 @@ public class ProductController {
 	/**
 	 * Pour modifier un produit par son id
 	 */
-	@PutMapping(value = "/products/{id}")
+	@PutMapping(value = "/products/{id}",
+			produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	
 	public ResponseEntity<Object> updateProduct(@PathVariable(name = "id") Long productId,
 			@RequestBody Product product) {
@@ -70,7 +75,8 @@ public class ProductController {
 	/**
 	 * Pour supprimer un produit par son id
 	 */
-	@DeleteMapping(value = "/products/{id}")
+	@DeleteMapping(value = "/products/{id}",
+			produces={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Object> deleteProduct(@PathVariable(name = "id") Long productId) {
 		Product productFound = service.getById(productId);
 		if (productFound == null)
